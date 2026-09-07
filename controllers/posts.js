@@ -10,3 +10,14 @@ export const index = (req, res) => {
     );
     return res.status(200).json(filteredPosts);
 };
+
+export const show = (req, res) => {
+    const id = Number(req.params.id);
+    const post = posts.find((post) => post.id === id);
+    if (!post) {
+        return res.status(404).json({
+            message: "Post non trovato",
+        });
+    }
+    return res.status(200).json(post);
+};
