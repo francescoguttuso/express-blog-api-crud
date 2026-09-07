@@ -21,3 +21,26 @@ export const show = (req, res) => {
     }
     return res.status(200).json(post);
 };
+
+export const store = (req, res) => {
+    const { title, content, image, tags } = req.body;
+    if (!title || !content) {
+        return res.status(400).json({
+            message: "Title e content sono obbligatori",
+        });
+    }
+    const newPost = {
+        id: posts.length
+            ? Math.max(...posts.map((post) => post.id)) + 1
+            : 1,
+        title,
+        content,
+        image,
+        tags: tags ?? [],
+    };
+    posts.push(newPost);
+    return res
+        .status(201)
+        .location(`/posts/${newPost.id}`)
+        .json(newPost);
+};
