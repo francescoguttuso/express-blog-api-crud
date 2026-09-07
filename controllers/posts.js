@@ -44,3 +44,27 @@ export const store = (req, res) => {
         .location(`/posts/${newPost.id}`)
         .json(newPost);
 };
+
+export const update = (req, res) => {
+    const id = Number(req.params.id);
+    const post = posts.find((post) => post.id === id);
+    if (!post) {
+        return res.status(404).json({
+            message: "Post non trovato",
+        });
+    }
+    const { title, content, image, tags } = req.body;
+    if (!title || !content) {
+        return res.status(400).json({
+            message: "Title e content sono obbligatori",
+        });
+    }
+    post.title = title;
+    post.content = content;
+    post.image = image;
+    post.tags = tags ?? [];
+    return res.status(200).json(post);
+};
+
+
+
