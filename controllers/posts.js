@@ -66,5 +66,15 @@ export const update = (req, res) => {
     return res.status(200).json(post);
 };
 
-
+export const destroy = (req, res) => {
+    const id = Number(req.params.id);
+    const index = posts.findIndex((post) => post.id === id);
+    if (index === -1) {
+        return res.status(404).json({
+            message: "Post non trovato",
+        });
+    }
+    posts.splice(index, 1);
+    return res.status(204).send();
+};
 
