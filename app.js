@@ -17,6 +17,12 @@ app.get("/bacheca", (req, res) => {
   res.json(posts);
 });
 
+app.use((res, req) => {
+  res.statusCode(404).json({
+    error: "Indirizzo non raggiungibile",
+  });
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
