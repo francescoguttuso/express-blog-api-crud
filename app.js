@@ -18,9 +18,15 @@ app.get("/bacheca", (req, res) => {
   res.json(posts);
 });
 
-app.use((res, req) => {
+app.use((req, res) => {
   res.statusCode(404).json({
     error: "Indirizzo non raggiungibile",
+  });
+});
+
+app.use((err, req, res, next) => {
+  res.status(500).json({
+    error: "Errore interno del Server",
   });
 });
 
